@@ -25,6 +25,22 @@ async function getWeather() {
 	const tenkiRes = await fetch(tenki);
 	//objek json
 	const tenkiData = await tenkiRes.json();
-	console.log(tenkiData)	
+	//innerHtml
+	const container = document.getElementById("container-week");
+	//empty list
+	container.innerHTML = "";
+	//loop list
+	for (let i = 0; i < tenkiData.daily.time.length; i++) {
+		const tanggal = formatDate(tenkiData.daily.time[i]);
+		const suhu = tenkiData.daily.temperature_2m_max[i];
+		const kodeCuaca = tenkiData.daily.weather_code[i];
+
+		const card = `
+		<li>
+			<p>${tanggal}</p>
+			<p>最高: ${suhu}</p>
+			<p>${kodeCuaca}</p>
+		</li>`;
+		container.innerHTML += card;
+	}
 }
-getWeather()
