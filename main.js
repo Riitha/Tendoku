@@ -6,26 +6,25 @@ function formatDate(date) {
         month: "long",
     });
 }
-//async await
-const url = "https://api.open-meteo.com/v1/forecast?latitude=35.6895&longitude=139.6917&daily=weather_code,temperature_2m_min&timezone=Asia%2FTokyo"
-
-async function fetchingData() {
-    try {
-        const res = await fetch(url);
-        const forecast = await res.json();
-        const container = document.getElementById("card-container")
-
-        for (let i = 0; i < forecast.daily.time.length; i++) {
-            const tanggal = formatDate(forecast.daily.time[i]);
-            const suhu = forecast.daily.temperature_2m_min[i];
-
-            const card=`
-            <li><p>${tanggal}</p><p>最低:${suhu}</p></li>`;
-
-            container.innerHTML += card;
-        }
-    } catch(error) {
-        console.error("data tidak ditemukan", error)
-    }
+//search
+async function getWeather() {
+	const city = document.getElementById('search-input').value;
+	if(!city) {
+		alert('お住まいを入力してください');
+		return;
+	}
+	//nama geo
+	const geoUrl = `https://geocoding-api.open-meteo.com/v1/search?name=${city}&count=1&language=en&format=json&countryCode=JP`;
+	const geoRes = await fetch(geoUrl);
+	const geoData = await geoRes.json();
+	// cuaca perkota 
+	const longitude = geoData.results[0].longitude;
+	const latitude = geoData.results[0].latitude;
+	const tenki = `https://api.open-meteo.com/v1/forecast?latitude=${latitude}&longitude=${longitude}&daily=weather_code,temperature_2m_max&timezone=Asia%2FTokyo`;
+	//proses data cuaca
+	const tenkiRes = await fetch(tenki);
+	//objek json
+	const tenkiData = await tenkiRes.json();
+	console.log(tenkiData)	
 }
-fetchingData();
+getWeather()
