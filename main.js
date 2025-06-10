@@ -1,10 +1,14 @@
 //menambahkan format date
-function formatDate(date) {
-    return new Date(date).toLocaleDateString("ja-JP", {
-        weekday: "long",
-        day: "numeric",
-        month: "long",
-    });
+function formatDate(d){
+	const event = new Date(d);
+
+	const hari = event.toLocaleDateString("ja-JP",
+		{ weekday: "short"});
+	const tanggal = event.toLocaleDateString("ja-JP" , {
+		month: "long",
+		day: "numeric"
+	});
+	return { hari, tanggal}
 }
 //search
 async function getWeather() {
@@ -31,13 +35,14 @@ async function getWeather() {
 	container.innerHTML = "";
 	//loop list
 	for (let i = 0; i < tenkiData.daily.time.length; i++) {
-		const tanggal = formatDate(tenkiData.daily.time[i]);
+		const { hari, tanggal} = formatDate(tenkiData.daily.time[i]);
 		const suhu = tenkiData.daily.temperature_2m_max[i];
 		const kodeCuaca = tenkiData.daily.weather_code[i];
 
 		const card = `
 		<li>
-			<p>${tanggal}</p>
+			<p>${ hari }</p>
+			<p>${ tanggal }</p>
 			<p>最高: ${suhu}</p>
 			<p>${kodeCuaca}</p>
 		</li>`;
