@@ -10,6 +10,44 @@ function formatDate(d){
 	});
 	return { hari, tanggal}
 }
+//else if untuk kode cuaca
+const kodeCerah = [0];
+const kodeBerawan = [1, 2, 3];
+const kodeKabut = [45, 48];
+const kodeGerimis = [51, 53, 55];
+const kodeHujan = [61, 63, 65, 80, 81, 82];
+const kodeHujanBeku = [56, 57, 66, 67];
+const kodeSalju = [71, 73, 75, 77, 85, 86];
+const kodePetir = [95, 96, 99];
+
+function getWeatherIcon(x) {
+	if (kodeCerah.includes(x)) {
+		return 'icon/cerah.png'
+	}
+	else if (kodeBerawan.includes(x)) {
+		return 'icon/berawan.png'
+	}
+	else if (kodeKabut.includes(x)) {
+		return 'icon/kabut.png'
+	}
+	else if (kodeGerimis.includes(x)) {
+		return 'icon/gerimis.png'
+	}
+	else if (kodeHujan.includes(x)) {
+		return 'icon/hujan.png'
+	}
+	else if (kodeHujanBeku.includes(x)) {
+		return 'icon/hujanBeku.png'
+	}
+	else if (kodeSalju.includes(x)) {
+		return 'icon/salju.png'
+	}
+	else if (kodePetir.includes(x)) {
+		return 'icon/petir.png'
+	}else {
+		return '';
+	}
+}
 //search
 async function getWeather() {
 	const city = document.getElementById('search-input').value;
@@ -17,6 +55,7 @@ async function getWeather() {
 		alert('お住まいを入力してください');
 		return;
 	}
+	// let city = "Nagano"
 	//nama geo
 	const geoUrl = `https://geocoding-api.open-meteo.com/v1/search?name=${city}&count=1&language=en&format=json&countryCode=JP`;
 	const geoRes = await fetch(geoUrl);
@@ -31,20 +70,22 @@ async function getWeather() {
 	const tenkiData = await tenkiRes.json();
 	//innerHtml
 	const container = document.getElementById("container-week");
+	// console.log(tenkiData.daily.weather_code)
 	//empty list
 	container.innerHTML = "";
-	//loop list
+	// //loop list
 	for (let i = 0; i < tenkiData.daily.time.length; i++) {
 		const { hari, tanggal} = formatDate(tenkiData.daily.time[i]);
 		const suhu = tenkiData.daily.temperature_2m_max[i];
 		const kodeCuaca = tenkiData.daily.weather_code[i];
+		const iconKode = getWeatherIcon(kodeCuaca);
 
 		const card = `
-		<li>
-			<p>${ hari }</p>
-			<p>${ tanggal }</p>
-			<p>最高: ${suhu}</p>
-			<p>${kodeCuaca}</p>
+		<li class ="card-days w-38 text-2xl text-blue-400 font-semibold bg-stone-50 flex flex-col items-center border-3 rounded-lg border-indigo-900/90">
+			<p class="text-blue-900">${ hari }</p>
+			<p class="text-blue-900 mt-1">${ tanggal }</p>
+			<img src ="${iconKode}" alt=weatherIcon.png class="w-15"/>
+			<p class="text-xl mt-1 text-fuchsia-900">最高: ${suhu}&deg;</p>
 		</li>`;
 		container.innerHTML += card;
 	}
