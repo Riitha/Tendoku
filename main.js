@@ -1,3 +1,19 @@
+//menambahkan user name dengan prompt
+let displayUser = document.getElementById('userName');
+let userId = localStorage.getItem('namaUser');
+
+if (!userId || userId === 'null') {
+	userId = prompt('お名前を入力してください');
+		if (!userId || userId.trim() === "") {
+			userId = "ゲスト";
+		}
+		localStorage.setItem('namaUser', userId);
+}
+displayUser.innerHTML = userId;
+//change user
+function resetUser() {
+	localStorage.removeItem('namaUser');
+}
 //menambahkan format date
 function formatDate(d){
 	const event = new Date(d);

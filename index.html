@@ -13,25 +13,25 @@
      <div class="flex flex-row h-20 items-center bg-indigo-950">
         <div class="w-25 h-auto px-4 py-4">
             <img src="icon/logov1.png" alt="tendoku.png">
-                </div>
+        </div>
             <div class="text-fuchsia-50 flex flex-row cursor-default">
-            <p >天読</p>
+                <button onclick="resetUser()" class="bg-white text-fuchsia-800 border rounded-xl text-sm p-1 hover:bg-violet-100" >ユーザー変更</button>
         </div>
      </div>
      <!-- end top -->
     <main>
-        <!-- genzai -->
-        <div class="location-now my-8 text-center space-y-4">
-            <h1 class="text-4xl text-fuchsia-100 cursor-default">ごきげんよう<span id="userName" class="hover:text-violet-300"></span></h1>
-            <h1>天気予測ならおまけせを！</h1>
+        <!-- search bar-->
+        <div class="location-now mt-35 my-8 text-center space-y-4 w-full h-30%">
+            <h1 class="text-6xl text-shadow-lg text-shadow-indigo-900 text-fuchsia-100 cursor-default">ようこそ <span id="userName" class="hover:text-violet-300"></span></h1>
+            <h1 class="text-2xl text-fuchsia-100 cursor-default" >気になる所を調べてみよう！</h1>
         </div>
-        <div class="kensaku flex justify-center items-center w-auto my-8  space-y-4">
-            <div class="flex items-center border border-black rounded-xl px-4 py-2 w-[250px] bg-white">
-            <i class="fa-solid fa-location-dot text-[16px] mr-3"></i>
-            <input type="text" id="search-input" placeholder="地域を検索">
+        <div class="kensaku flex justify-center items-center w-100% my-8  space-y-4">
+            <div class="flex items-center border border-black rounded-xl px-4 py-2 w-[400px] h-15 bg-white">
+            <input type="text" id="search-input" placeholder="地域を検索" class="flex-1 text-xl">
             <button onclick="getWeather()"><i class="fa-solid fa-magnifying-glass"></i></button>
             </div>    
         </div>
+        <!-- end search bar -->
         <!-- tenki card
          <div class="tenki-countainer w-full flex justify-center gap-2">
             <-- 今日 -->
@@ -78,7 +78,7 @@
                     <img src="icon/時々雨 light.png" alt="weather.jpg" class="w-20">
                 </div>
             </div> -->
-            <script src="main.js"></script>
     </main>
+    <script src="main.js"></script>
 </body>
 </html>
