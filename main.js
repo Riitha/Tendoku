@@ -105,4 +105,21 @@ async function getWeather() {
 		</li>`;
 		container.innerHTML += card;
 	}
+	const kodeTips = tenkiData.daily.weather_code[0];
+	let tipsIcon = '';
+	if (kodeCerah.includes(kodeTips)) {
+		tipsIcon = 'icon/jemuranOk.png';
+	} 
+	else if(kodeBerawan.includes(kodeTips)){
+		tipsIcon = 'icon/jemuranOk.png';
+	} else {
+		tipsIcon = 'icon/jemuranNg.png'
+	}
+	const cardTips = `
+	<li class="flex justify-center items-center">
+	<p>今日</p>
+	<img src="${tipsIcon}" alt="tips.png" class="w-15"/>
+	</li>
+	`;
+	document.getElementById("card-tips").innerHTML = cardTips;
 }
