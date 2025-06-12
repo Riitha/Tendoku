@@ -97,7 +97,7 @@ async function getWeather() {
 		const iconKode = getWeatherIcon(kodeCuaca);
 
 		const card = `
-		<li class ="card-days w-38 text-2xl text-blue-400 font-semibold bg-stone-50 flex flex-col items-center border-3 rounded-lg border-indigo-900/90">
+		<li class ="card-days w-50 text-2xl text-blue-400 font-semibold bg-stone-50 flex flex-col items-center border-3 rounded-lg border-none hover:bg-blue-50">
 			<p class="text-blue-900">${ hari }</p>
 			<p class="text-blue-900 mt-1">${ tanggal }</p>
 			<img src ="${iconKode}" alt=weatherIcon.png class="w-15"/>
@@ -116,9 +116,9 @@ async function getWeather() {
 		tipsIcon = 'icon/jemuranNg.png'
 	}
 	const cardTips = `
-	<li class="flex justify-center items-center">
-	<p>今日</p>
-	<img src="${tipsIcon}" alt="tips.png" class="w-15"/>
+	<li class="w-38 h-40 text-3xl text-blue-400 font-semibold bg-rose-200 flex flex-col items-center border-3 rounded-lg border-none hover:bg-rose-100">
+		<p class="text-slate-500/90 mt-2">今日</p>
+		<img src="${tipsIcon}" alt="tips.png" class="w-15 mt-5"/>
 	</li>
 	`;
 	document.getElementById("card-tips").innerHTML = cardTips;
